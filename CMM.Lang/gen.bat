@@ -1,0 +1,1 @@
+java -jar "%~dp0..\Extern\antlr-4.8-complete.jar"  -Dlanguage=CSharp -o csharp CMM.g4 -listener -visitor

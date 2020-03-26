@@ -82,6 +82,18 @@ public partial class CMMBaseListener : ICMMListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitNumber([NotNull] CMMParser.NumberContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.field"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterField([NotNull] CMMParser.FieldContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.field"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitField([NotNull] CMMParser.FieldContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

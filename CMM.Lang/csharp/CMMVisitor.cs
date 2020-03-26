@@ -55,4 +55,10 @@ public interface ICMMVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitNumber([NotNull] CMMParser.NumberContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.field"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitField([NotNull] CMMParser.FieldContext context);
 }

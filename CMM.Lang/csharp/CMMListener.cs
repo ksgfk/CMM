@@ -70,4 +70,14 @@ public interface ICMMListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitNumber([NotNull] CMMParser.NumberContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.field"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterField([NotNull] CMMParser.FieldContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.field"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitField([NotNull] CMMParser.FieldContext context);
 }

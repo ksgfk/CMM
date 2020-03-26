@@ -1,17 +1,16 @@
 namespace CMM.Lang
 {
-    public class FieldExpr : Expression<int>
+    public class FieldExpr : Expression<double>
     {
-        private readonly IExpression _expr;
-
         public string FieldName { get; }
+        public IExpression Expr { get; set; }
 
         public FieldExpr(string fieldName, IExpression expr)
         {
             FieldName = fieldName;
-            _expr = expr;
+            Expr = expr;
         }
 
-        public override int GetResultWithType() { return _expr == null ? 0 : 1; }
+        public override double GetResultWithType() { return ((Expression<double>) Expr).GetResultWithType(); }
     }
 }

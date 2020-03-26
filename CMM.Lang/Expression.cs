@@ -6,9 +6,4 @@ namespace CMM.Lang
 
         object IExpression.GetResult() { return GetResultWithType(); }
     }
-
-    public interface IExpression
-    {
-        object GetResult();
-    }
 }

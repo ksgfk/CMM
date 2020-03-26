@@ -6,7 +6,8 @@ expression//表达式
     | number
     | expression operatorMulDiv expression
     | expression operatorAddSub expression
-    | field
+    | field | field operatorAssign expression
+    | 'print(' field ')'
     ;
 
 operatorAddSub//加减运算符
@@ -15,12 +16,15 @@ operatorAddSub//加减运算符
 operatorMulDiv//乘除运算符
     : '*'|'/';
 
+operatorAssign//赋值运算符
+    : '=';
+
 number
     : INT | FLOAT
     ;
     
 field//字段
-    : NAME '=' expression | NAME
+    : NAME
     ;
 
 fragment

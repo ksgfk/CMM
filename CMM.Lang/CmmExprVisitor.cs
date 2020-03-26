@@ -1,9 +1,14 @@
 using System;
+using System.Collections.Generic;
 
 namespace CMM.Lang
 {
     public class CmmExprVisitor : CMMBaseVisitor<IExpression>
     {
+        private readonly Dictionary<string, FieldExpr> _fields;
+
+        public CmmExprVisitor() { _fields = new Dictionary<string, FieldExpr>(); }
+
         public override IExpression VisitNumber(CMMParser.NumberContext context) { return new NumberExpr(context.GetText()); }
 
         public override IExpression VisitOperatorAddSub(CMMParser.OperatorAddSubContext context)
@@ -24,11 +29,39 @@ namespace CMM.Lang
                 parent.GetChild(1).GetText()[0]);
         }
 
+        public override IExpression VisitOperatorAssign(CMMParser.OperatorAssignContext context)
+        {
+            var parent = context.Parent;
+            var field = (FieldExpr) VisitField((CMMParser.FieldContext) parent.GetChild(0));
+            var expr = VisitExpression((CMMParser.ExpressionContext) parent.GetChild(2));
+            field.Expr = expr;
+            return field;
+        }
+
         public override IExpression VisitField(CMMParser.FieldContext context)
         {
-            return new FieldExpr(
-                context.GetChild(0).GetText(),
-                VisitExpression(context.GetChild(2) as CMMParser.ExpressionContext));
+            var fieldName = context.GetChild(0).GetText();
+            if (!_fields.TryGetValue(fieldName, out var field))
+            {
+                field = new FieldExpr(fieldName, null);
+                _fields.Add(fieldName, field);
+            }
+
+            var parent = context.Parent;
+            if (parent.GetChild(0).GetText() == "print(")
+            {
+                Console.Write(">> ");
+                if (field.Expr == null)
+                {
+                    Console.WriteLine("null");
+                }
+                else
+                {
+                    Console.WriteLine(field.Expr.GetResult());
+                }
+            }
+
+            return field;
         }
 
         public override IExpression VisitExpression(CMMParser.ExpressionContext context)
@@ -54,6 +87,12 @@ namespace CMM.Lang
             if (opAs != null)
             {
                 return VisitOperatorAddSub(opAs);
+            }
+
+            var assign = context.operatorAssign();
+            if (assign != null)
+            {
+                return VisitOperatorAssign(assign);
             }
 
             var field = context.field();

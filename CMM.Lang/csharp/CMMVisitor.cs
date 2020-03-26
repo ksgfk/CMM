@@ -50,6 +50,12 @@ public interface ICMMVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitOperatorMulDiv([NotNull] CMMParser.OperatorMulDivContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.operatorAssign"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitOperatorAssign([NotNull] CMMParser.OperatorAssignContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="CMMParser.number"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

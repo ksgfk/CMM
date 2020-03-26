@@ -30,9 +30,10 @@ namespace CMM
                 var tokens = new CommonTokenStream(lexer);
                 var parser = new CMMParser(tokens);
                 var tree = parser.expression();
-                var expr = visitor.Visit(tree);
-                Console.WriteLine(tree.ToStringTree(parser));
-                Console.WriteLine(expr.GetResult());
+                //var expr = visitor.Visit(tree);
+                //Console.WriteLine(tree.ToStringTree(parser));
+                //Console.WriteLine(expr.GetResult());
+                visitor.Visit(tree);
             }
         }
     }

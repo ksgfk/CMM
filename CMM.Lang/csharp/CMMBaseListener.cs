@@ -71,6 +71,18 @@ public partial class CMMBaseListener : ICMMListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitOperatorMulDiv([NotNull] CMMParser.OperatorMulDivContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.operatorAssign"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOperatorAssign([NotNull] CMMParser.OperatorAssignContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.operatorAssign"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOperatorAssign([NotNull] CMMParser.OperatorAssignContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="CMMParser.number"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

@@ -61,6 +61,16 @@ public interface ICMMListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitOperatorMulDiv([NotNull] CMMParser.OperatorMulDivContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.operatorAssign"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterOperatorAssign([NotNull] CMMParser.OperatorAssignContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.operatorAssign"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitOperatorAssign([NotNull] CMMParser.OperatorAssignContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="CMMParser.number"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

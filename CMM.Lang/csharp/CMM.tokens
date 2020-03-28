@@ -9,6 +9,7 @@ T__7=8
 FLOAT=9
 INT=10
 NAME=11
+WS=12
 '('=1
 ')'=2
 'print('=3

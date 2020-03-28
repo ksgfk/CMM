@@ -7,7 +7,7 @@ expression//表达式
     | expression operatorMulDiv expression
     | expression operatorAddSub expression
     | field | field operatorAssign expression
-    | 'print(' field ')'
+    | 'print(' expression ')'
     ;
 
 operatorAddSub//加减运算符
@@ -49,4 +49,8 @@ INT
     
 NAME//名称，可以是变量的
     : [a-zA-Z_][a-zA-Z_0-9]*
+    ;
+    
+WS//跳过解析空格，转义字符
+    : [ \t\r\n]+ -> skip
     ;

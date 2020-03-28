@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace CMM.Lang
 {
+    /// <summary>
+    /// TODO：是不是用Listener来储存解析比较好，Visitor返回解析结果
+    /// </summary>
     public class CmmExprVisitor : CMMBaseVisitor<IExpression>
     {
         private readonly Dictionary<string, FieldExpr> _fields;
@@ -47,20 +50,6 @@ namespace CMM.Lang
                 _fields.Add(fieldName, field);
             }
 
-            var parent = context.Parent;
-            if (parent.GetChild(0).GetText() == "print(")
-            {
-                Console.Write(">> ");
-                if (field.Expr == null)
-                {
-                    Console.WriteLine("null");
-                }
-                else
-                {
-                    Console.WriteLine(field.Expr.GetResult());
-                }
-            }
-
             return field;
         }
 
@@ -98,7 +87,23 @@ namespace CMM.Lang
             var field = context.field();
             if (field != null)
             {
-                return VisitField(field);
+                var ans = (FieldExpr) VisitField(field);
+                return ans.Expr == null ? null : ans;
+            }
+
+
+            if (context.GetChild(0).GetText() == "print(") //过于生草的解析方式（
+            {
+                Console.Write(">> ");
+                var expr = VisitExpression((CMMParser.ExpressionContext) context.GetChild(1));
+                if (expr == null)
+                {
+                    Console.WriteLine("null");
+                }
+                else
+                {
+                    Console.WriteLine(expr.GetResult());
+                }
             }
 
             return VisitExpression((CMMParser.ExpressionContext) context.GetChild(1));

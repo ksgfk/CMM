@@ -37,7 +37,7 @@ public partial class CMMParser : Parser {
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, FLOAT=9, 
-		INT=10, NAME=11;
+		INT=10, NAME=11, WS=12;
 	public const int
 		RULE_expression = 0, RULE_operatorAddSub = 1, RULE_operatorMulDiv = 2, 
 		RULE_operatorAssign = 3, RULE_number = 4, RULE_field = 5;
@@ -51,7 +51,7 @@ public partial class CMMParser : Parser {
 	};
 	private static readonly string[] _SymbolicNames = {
 		null, null, null, null, null, null, null, null, null, "FLOAT", "INT", 
-		"NAME"
+		"NAME", "WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -177,7 +177,7 @@ public partial class CMMParser : Parser {
 			case 6:
 				{
 				State = 23; Match(T__2);
-				State = 24; field();
+				State = 24; expression(0);
 				State = 25; Match(T__1);
 				}
 				break;
@@ -491,7 +491,7 @@ public partial class CMMParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\r', '\x37', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\x5964', '\x3', '\xE', '\x37', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
 		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
 		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x3', '\x2', '\x3', '\x2', 
 		'\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', 
@@ -515,7 +515,7 @@ public partial class CMMParser : Parser {
 		'\x16', '\x5', '\f', '\a', '\x2', '\x16', '\x17', '\x5', '\b', '\x5', 
 		'\x2', '\x17', '\x18', '\x5', '\x2', '\x2', '\x4', '\x18', '\x1E', '\x3', 
 		'\x2', '\x2', '\x2', '\x19', '\x1A', '\a', '\x5', '\x2', '\x2', '\x1A', 
-		'\x1B', '\x5', '\f', '\a', '\x2', '\x1B', '\x1C', '\a', '\x4', '\x2', 
+		'\x1B', '\x5', '\x2', '\x2', '\x2', '\x1B', '\x1C', '\a', '\x4', '\x2', 
 		'\x2', '\x1C', '\x1E', '\x3', '\x2', '\x2', '\x2', '\x1D', '\xE', '\x3', 
 		'\x2', '\x2', '\x2', '\x1D', '\xF', '\x3', '\x2', '\x2', '\x2', '\x1D', 
 		'\x13', '\x3', '\x2', '\x2', '\x2', '\x1D', '\x14', '\x3', '\x2', '\x2', 

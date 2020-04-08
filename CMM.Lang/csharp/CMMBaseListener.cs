@@ -35,41 +35,145 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CLSCompliant(false)]
 public partial class CMMBaseListener : ICMMListener {
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CMMParser.expression"/>.
+	/// Enter a parse tree produced by the <c>Variable</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterExpression([NotNull] CMMParser.ExpressionContext context) { }
+	public virtual void EnterVariable([NotNull] CMMParser.VariableContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="CMMParser.expression"/>.
+	/// Exit a parse tree produced by the <c>Variable</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitExpression([NotNull] CMMParser.ExpressionContext context) { }
+	public virtual void ExitVariable([NotNull] CMMParser.VariableContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CMMParser.operatorAddSub"/>.
+	/// Enter a parse tree produced by the <c>Parent</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterOperatorAddSub([NotNull] CMMParser.OperatorAddSubContext context) { }
+	public virtual void EnterParent([NotNull] CMMParser.ParentContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="CMMParser.operatorAddSub"/>.
+	/// Exit a parse tree produced by the <c>Parent</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitOperatorAddSub([NotNull] CMMParser.OperatorAddSubContext context) { }
+	public virtual void ExitParent([NotNull] CMMParser.ParentContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CMMParser.operatorMulDiv"/>.
+	/// Enter a parse tree produced by the <c>MulDiv</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterOperatorMulDiv([NotNull] CMMParser.OperatorMulDivContext context) { }
+	public virtual void EnterMulDiv([NotNull] CMMParser.MulDivContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="CMMParser.operatorMulDiv"/>.
+	/// Exit a parse tree produced by the <c>MulDiv</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitOperatorMulDiv([NotNull] CMMParser.OperatorMulDivContext context) { }
+	public virtual void ExitMulDiv([NotNull] CMMParser.MulDivContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>AddSub</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAddSub([NotNull] CMMParser.AddSubContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>AddSub</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAddSub([NotNull] CMMParser.AddSubContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Num</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterNum([NotNull] CMMParser.NumContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Num</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitNum([NotNull] CMMParser.NumContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Assign</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAssign([NotNull] CMMParser.AssignContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Assign</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAssign([NotNull] CMMParser.AssignContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Add</c>
+	/// labeled alternative in <see cref="CMMParser.operatorAddSub"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterAdd([NotNull] CMMParser.AddContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Add</c>
+	/// labeled alternative in <see cref="CMMParser.operatorAddSub"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitAdd([NotNull] CMMParser.AddContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Sub</c>
+	/// labeled alternative in <see cref="CMMParser.operatorAddSub"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSub([NotNull] CMMParser.SubContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Sub</c>
+	/// labeled alternative in <see cref="CMMParser.operatorAddSub"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSub([NotNull] CMMParser.SubContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Mul</c>
+	/// labeled alternative in <see cref="CMMParser.operatorMulDiv"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMul([NotNull] CMMParser.MulContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Mul</c>
+	/// labeled alternative in <see cref="CMMParser.operatorMulDiv"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMul([NotNull] CMMParser.MulContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Div</c>
+	/// labeled alternative in <see cref="CMMParser.operatorMulDiv"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDiv([NotNull] CMMParser.DivContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Div</c>
+	/// labeled alternative in <see cref="CMMParser.operatorMulDiv"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDiv([NotNull] CMMParser.DivContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="CMMParser.operatorAssign"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -83,17 +187,47 @@ public partial class CMMBaseListener : ICMMListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitOperatorAssign([NotNull] CMMParser.OperatorAssignContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="CMMParser.number"/>.
+	/// Enter a parse tree produced by the <c>Int</c>
+	/// labeled alternative in <see cref="CMMParser.number"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterNumber([NotNull] CMMParser.NumberContext context) { }
+	public virtual void EnterInt([NotNull] CMMParser.IntContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="CMMParser.number"/>.
+	/// Exit a parse tree produced by the <c>Int</c>
+	/// labeled alternative in <see cref="CMMParser.number"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitNumber([NotNull] CMMParser.NumberContext context) { }
+	public virtual void ExitInt([NotNull] CMMParser.IntContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Double</c>
+	/// labeled alternative in <see cref="CMMParser.number"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterDouble([NotNull] CMMParser.DoubleContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Double</c>
+	/// labeled alternative in <see cref="CMMParser.number"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitDouble([NotNull] CMMParser.DoubleContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>Float</c>
+	/// labeled alternative in <see cref="CMMParser.number"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFloat([NotNull] CMMParser.FloatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>Float</c>
+	/// labeled alternative in <see cref="CMMParser.number"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFloat([NotNull] CMMParser.FloatContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="CMMParser.field"/>.
 	/// <para>The default implementation does nothing.</para>

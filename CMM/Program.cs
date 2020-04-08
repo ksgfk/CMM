@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Threading;
 using Antlr4.Runtime;
 using CMM.Lang;
@@ -30,10 +31,24 @@ namespace CMM
                 var tokens = new CommonTokenStream(lexer);
                 var parser = new CMMParser(tokens);
                 var tree = parser.expression();
-                //var expr = visitor.Visit(tree);
-                //Console.WriteLine(tree.ToStringTree(parser));
-                //Console.WriteLine(expr.GetResult());
-                visitor.Visit(tree);
+                Console.WriteLine(tree.ToStringTree(parser));
+                try
+                {
+                    var expr = visitor.Visit(tree);
+                    if (expr == null)
+                    {
+                        Console.WriteLine("null");
+                        continue;
+                    }
+
+                    var result = Expression.Lambda(expr).Compile();
+                    Console.WriteLine(result.DynamicInvoke());
+                    // Console.WriteLine(expr.ToString());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
     }

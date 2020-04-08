@@ -32,23 +32,75 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface ICMMVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CMMParser.expression"/>.
+	/// Visit a parse tree produced by the <c>Variable</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitExpression([NotNull] CMMParser.ExpressionContext context);
+	Result VisitVariable([NotNull] CMMParser.VariableContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CMMParser.operatorAddSub"/>.
+	/// Visit a parse tree produced by the <c>Parent</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitOperatorAddSub([NotNull] CMMParser.OperatorAddSubContext context);
+	Result VisitParent([NotNull] CMMParser.ParentContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CMMParser.operatorMulDiv"/>.
+	/// Visit a parse tree produced by the <c>MulDiv</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitOperatorMulDiv([NotNull] CMMParser.OperatorMulDivContext context);
+	Result VisitMulDiv([NotNull] CMMParser.MulDivContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>AddSub</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitAddSub([NotNull] CMMParser.AddSubContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Num</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNum([NotNull] CMMParser.NumContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Assign</c>
+	/// labeled alternative in <see cref="CMMParser.expression"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitAssign([NotNull] CMMParser.AssignContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Add</c>
+	/// labeled alternative in <see cref="CMMParser.operatorAddSub"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitAdd([NotNull] CMMParser.AddContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Sub</c>
+	/// labeled alternative in <see cref="CMMParser.operatorAddSub"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSub([NotNull] CMMParser.SubContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Mul</c>
+	/// labeled alternative in <see cref="CMMParser.operatorMulDiv"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMul([NotNull] CMMParser.MulContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Div</c>
+	/// labeled alternative in <see cref="CMMParser.operatorMulDiv"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDiv([NotNull] CMMParser.DivContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="CMMParser.operatorAssign"/>.
 	/// </summary>
@@ -56,11 +108,26 @@ public interface ICMMVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitOperatorAssign([NotNull] CMMParser.OperatorAssignContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="CMMParser.number"/>.
+	/// Visit a parse tree produced by the <c>Int</c>
+	/// labeled alternative in <see cref="CMMParser.number"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitNumber([NotNull] CMMParser.NumberContext context);
+	Result VisitInt([NotNull] CMMParser.IntContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Double</c>
+	/// labeled alternative in <see cref="CMMParser.number"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDouble([NotNull] CMMParser.DoubleContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Float</c>
+	/// labeled alternative in <see cref="CMMParser.number"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFloat([NotNull] CMMParser.FloatContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="CMMParser.field"/>.
 	/// </summary>

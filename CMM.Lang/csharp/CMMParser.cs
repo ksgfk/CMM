@@ -36,7 +36,7 @@ public partial class CMMParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, FLOAT=9, 
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, FLOAT=8, DOUBLE=9, 
 		INT=10, NAME=11, WS=12;
 	public const int
 		RULE_expression = 0, RULE_operatorAddSub = 1, RULE_operatorMulDiv = 2, 
@@ -47,10 +47,10 @@ public partial class CMMParser : Parser {
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'('", "')'", "'print('", "'+'", "'-'", "'*'", "'/'", "'='"
+		null, "'('", "')'", "'+'", "'-'", "'*'", "'/'", "'='"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, null, null, null, null, null, null, "FLOAT", "INT", 
+		null, null, null, null, null, null, null, null, "FLOAT", "DOUBLE", "INT", 
 		"NAME", "WS"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
@@ -86,43 +86,146 @@ public partial class CMMParser : Parser {
 	}
 
 	public partial class ExpressionContext : ParserRuleContext {
+		public ExpressionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_expression; } }
+	 
+		public ExpressionContext() { }
+		public virtual void CopyFrom(ExpressionContext context) {
+			base.CopyFrom(context);
+		}
+	}
+	public partial class VariableContext : ExpressionContext {
+		public FieldContext field() {
+			return GetRuleContext<FieldContext>(0);
+		}
+		public VariableContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.EnterVariable(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.ExitVariable(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitVariable(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class ParentContext : ExpressionContext {
+		public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
+		}
+		public ParentContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.EnterParent(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.ExitParent(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitParent(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class MulDivContext : ExpressionContext {
 		public ExpressionContext[] expression() {
 			return GetRuleContexts<ExpressionContext>();
 		}
 		public ExpressionContext expression(int i) {
 			return GetRuleContext<ExpressionContext>(i);
 		}
+		public OperatorMulDivContext operatorMulDiv() {
+			return GetRuleContext<OperatorMulDivContext>(0);
+		}
+		public MulDivContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.EnterMulDiv(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.ExitMulDiv(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMulDiv(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class AddSubContext : ExpressionContext {
+		public ExpressionContext[] expression() {
+			return GetRuleContexts<ExpressionContext>();
+		}
+		public ExpressionContext expression(int i) {
+			return GetRuleContext<ExpressionContext>(i);
+		}
+		public OperatorAddSubContext operatorAddSub() {
+			return GetRuleContext<OperatorAddSubContext>(0);
+		}
+		public AddSubContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.EnterAddSub(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.ExitAddSub(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitAddSub(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class NumContext : ExpressionContext {
 		public NumberContext number() {
 			return GetRuleContext<NumberContext>(0);
 		}
+		public NumContext(ExpressionContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.EnterNum(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.ExitNum(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitNum(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class AssignContext : ExpressionContext {
 		public FieldContext field() {
 			return GetRuleContext<FieldContext>(0);
 		}
 		public OperatorAssignContext operatorAssign() {
 			return GetRuleContext<OperatorAssignContext>(0);
 		}
-		public OperatorMulDivContext operatorMulDiv() {
-			return GetRuleContext<OperatorMulDivContext>(0);
+		public ExpressionContext expression() {
+			return GetRuleContext<ExpressionContext>(0);
 		}
-		public OperatorAddSubContext operatorAddSub() {
-			return GetRuleContext<OperatorAddSubContext>(0);
-		}
-		public ExpressionContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_expression; } }
+		public AssignContext(ExpressionContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			ICMMListener typedListener = listener as ICMMListener;
-			if (typedListener != null) typedListener.EnterExpression(this);
+			if (typedListener != null) typedListener.EnterAssign(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			ICMMListener typedListener = listener as ICMMListener;
-			if (typedListener != null) typedListener.ExitExpression(this);
+			if (typedListener != null) typedListener.ExitAssign(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitExpression(this);
+			if (typedVisitor != null) return typedVisitor.VisitAssign(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -143,47 +246,49 @@ public partial class CMMParser : Parser {
 			int _alt;
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 27;
+			State = 23;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,0,Context) ) {
 			case 1:
 				{
-				}
-				break;
-			case 2:
-				{
+				_localctx = new ParentContext(_localctx);
+				Context = _localctx;
+				_prevctx = _localctx;
+
 				State = 13; Match(T__0);
 				State = 14; expression(0);
 				State = 15; Match(T__1);
 				}
 				break;
+			case 2:
+				{
+				_localctx = new NumContext(_localctx);
+				Context = _localctx;
+				_prevctx = _localctx;
+				State = 17; number();
+				}
+				break;
 			case 3:
 				{
-				State = 17; number();
+				_localctx = new VariableContext(_localctx);
+				Context = _localctx;
+				_prevctx = _localctx;
+				State = 18; field();
 				}
 				break;
 			case 4:
 				{
-				State = 18; field();
-				}
-				break;
-			case 5:
-				{
+				_localctx = new AssignContext(_localctx);
+				Context = _localctx;
+				_prevctx = _localctx;
 				State = 19; field();
 				State = 20; operatorAssign();
-				State = 21; expression(2);
-				}
-				break;
-			case 6:
-				{
-				State = 23; Match(T__2);
-				State = 24; expression(0);
-				State = 25; Match(T__1);
+				State = 21; expression(1);
 				}
 				break;
 			}
 			Context.Stop = TokenStream.LT(-1);
-			State = 39;
+			State = 35;
 			ErrorHandler.Sync(this);
 			_alt = Interpreter.AdaptivePredict(TokenStream,2,Context);
 			while ( _alt!=2 && _alt!=global::Antlr4.Runtime.Atn.ATN.INVALID_ALT_NUMBER ) {
@@ -192,33 +297,33 @@ public partial class CMMParser : Parser {
 						TriggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					State = 37;
+					State = 33;
 					ErrorHandler.Sync(this);
 					switch ( Interpreter.AdaptivePredict(TokenStream,1,Context) ) {
 					case 1:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new MulDivContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 29;
-						if (!(Precpred(Context, 5))) throw new FailedPredicateException(this, "Precpred(Context, 5)");
-						State = 30; operatorMulDiv();
-						State = 31; expression(6);
+						State = 25;
+						if (!(Precpred(Context, 4))) throw new FailedPredicateException(this, "Precpred(Context, 4)");
+						State = 26; operatorMulDiv();
+						State = 27; expression(5);
 						}
 						break;
 					case 2:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new AddSubContext(new ExpressionContext(_parentctx, _parentState));
 						PushNewRecursionContext(_localctx, _startState, RULE_expression);
-						State = 33;
-						if (!(Precpred(Context, 4))) throw new FailedPredicateException(this, "Precpred(Context, 4)");
-						State = 34; operatorAddSub();
-						State = 35; expression(5);
+						State = 29;
+						if (!(Precpred(Context, 3))) throw new FailedPredicateException(this, "Precpred(Context, 3)");
+						State = 30; operatorAddSub();
+						State = 31; expression(4);
 						}
 						break;
 					}
 					} 
 				}
-				State = 41;
+				State = 37;
 				ErrorHandler.Sync(this);
 				_alt = Interpreter.AdaptivePredict(TokenStream,2,Context);
 			}
@@ -241,17 +346,41 @@ public partial class CMMParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_operatorAddSub; } }
+	 
+		public OperatorAddSubContext() { }
+		public virtual void CopyFrom(OperatorAddSubContext context) {
+			base.CopyFrom(context);
+		}
+	}
+	public partial class AddContext : OperatorAddSubContext {
+		public AddContext(OperatorAddSubContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			ICMMListener typedListener = listener as ICMMListener;
-			if (typedListener != null) typedListener.EnterOperatorAddSub(this);
+			if (typedListener != null) typedListener.EnterAdd(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			ICMMListener typedListener = listener as ICMMListener;
-			if (typedListener != null) typedListener.ExitOperatorAddSub(this);
+			if (typedListener != null) typedListener.ExitAdd(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitOperatorAddSub(this);
+			if (typedVisitor != null) return typedVisitor.VisitAdd(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class SubContext : OperatorAddSubContext {
+		public SubContext(OperatorAddSubContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.EnterSub(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.ExitSub(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitSub(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -260,19 +389,26 @@ public partial class CMMParser : Parser {
 	public OperatorAddSubContext operatorAddSub() {
 		OperatorAddSubContext _localctx = new OperatorAddSubContext(Context, State);
 		EnterRule(_localctx, 2, RULE_operatorAddSub);
-		int _la;
 		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 42;
-			_la = TokenStream.LA(1);
-			if ( !(_la==T__3 || _la==T__4) ) {
-			ErrorHandler.RecoverInline(this);
-			}
-			else {
-				ErrorHandler.ReportMatch(this);
-			    Consume();
-			}
+			State = 40;
+			ErrorHandler.Sync(this);
+			switch (TokenStream.LA(1)) {
+			case T__2:
+				_localctx = new AddContext(_localctx);
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 38; Match(T__2);
+				}
+				break;
+			case T__3:
+				_localctx = new SubContext(_localctx);
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 39; Match(T__3);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -292,17 +428,41 @@ public partial class CMMParser : Parser {
 		{
 		}
 		public override int RuleIndex { get { return RULE_operatorMulDiv; } }
+	 
+		public OperatorMulDivContext() { }
+		public virtual void CopyFrom(OperatorMulDivContext context) {
+			base.CopyFrom(context);
+		}
+	}
+	public partial class DivContext : OperatorMulDivContext {
+		public DivContext(OperatorMulDivContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			ICMMListener typedListener = listener as ICMMListener;
-			if (typedListener != null) typedListener.EnterOperatorMulDiv(this);
+			if (typedListener != null) typedListener.EnterDiv(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			ICMMListener typedListener = listener as ICMMListener;
-			if (typedListener != null) typedListener.ExitOperatorMulDiv(this);
+			if (typedListener != null) typedListener.ExitDiv(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitOperatorMulDiv(this);
+			if (typedVisitor != null) return typedVisitor.VisitDiv(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class MulContext : OperatorMulDivContext {
+		public MulContext(OperatorMulDivContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.EnterMul(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.ExitMul(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitMul(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -311,19 +471,26 @@ public partial class CMMParser : Parser {
 	public OperatorMulDivContext operatorMulDiv() {
 		OperatorMulDivContext _localctx = new OperatorMulDivContext(Context, State);
 		EnterRule(_localctx, 4, RULE_operatorMulDiv);
-		int _la;
 		try {
-			EnterOuterAlt(_localctx, 1);
-			{
 			State = 44;
-			_la = TokenStream.LA(1);
-			if ( !(_la==T__5 || _la==T__6) ) {
-			ErrorHandler.RecoverInline(this);
-			}
-			else {
-				ErrorHandler.ReportMatch(this);
-			    Consume();
-			}
+			ErrorHandler.Sync(this);
+			switch (TokenStream.LA(1)) {
+			case T__4:
+				_localctx = new MulContext(_localctx);
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 42; Match(T__4);
+				}
+				break;
+			case T__5:
+				_localctx = new DivContext(_localctx);
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 43; Match(T__5);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -365,7 +532,7 @@ public partial class CMMParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 46; Match(T__7);
+			State = 46; Match(T__6);
 			}
 		}
 		catch (RecognitionException re) {
@@ -380,24 +547,65 @@ public partial class CMMParser : Parser {
 	}
 
 	public partial class NumberContext : ParserRuleContext {
-		public ITerminalNode INT() { return GetToken(CMMParser.INT, 0); }
-		public ITerminalNode FLOAT() { return GetToken(CMMParser.FLOAT, 0); }
 		public NumberContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
 		public override int RuleIndex { get { return RULE_number; } }
+	 
+		public NumberContext() { }
+		public virtual void CopyFrom(NumberContext context) {
+			base.CopyFrom(context);
+		}
+	}
+	public partial class FloatContext : NumberContext {
+		public ITerminalNode FLOAT() { return GetToken(CMMParser.FLOAT, 0); }
+		public FloatContext(NumberContext context) { CopyFrom(context); }
 		public override void EnterRule(IParseTreeListener listener) {
 			ICMMListener typedListener = listener as ICMMListener;
-			if (typedListener != null) typedListener.EnterNumber(this);
+			if (typedListener != null) typedListener.EnterFloat(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			ICMMListener typedListener = listener as ICMMListener;
-			if (typedListener != null) typedListener.ExitNumber(this);
+			if (typedListener != null) typedListener.ExitFloat(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitNumber(this);
+			if (typedVisitor != null) return typedVisitor.VisitFloat(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class DoubleContext : NumberContext {
+		public ITerminalNode DOUBLE() { return GetToken(CMMParser.DOUBLE, 0); }
+		public DoubleContext(NumberContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.EnterDouble(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.ExitDouble(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitDouble(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class IntContext : NumberContext {
+		public ITerminalNode INT() { return GetToken(CMMParser.INT, 0); }
+		public IntContext(NumberContext context) { CopyFrom(context); }
+		public override void EnterRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.EnterInt(this);
+		}
+		public override void ExitRule(IParseTreeListener listener) {
+			ICMMListener typedListener = listener as ICMMListener;
+			if (typedListener != null) typedListener.ExitInt(this);
+		}
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			ICMMVisitor<TResult> typedVisitor = visitor as ICMMVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitInt(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -406,19 +614,33 @@ public partial class CMMParser : Parser {
 	public NumberContext number() {
 		NumberContext _localctx = new NumberContext(Context, State);
 		EnterRule(_localctx, 8, RULE_number);
-		int _la;
 		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 48;
-			_la = TokenStream.LA(1);
-			if ( !(_la==FLOAT || _la==INT) ) {
-			ErrorHandler.RecoverInline(this);
-			}
-			else {
-				ErrorHandler.ReportMatch(this);
-			    Consume();
-			}
+			State = 51;
+			ErrorHandler.Sync(this);
+			switch (TokenStream.LA(1)) {
+			case INT:
+				_localctx = new IntContext(_localctx);
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 48; Match(INT);
+				}
+				break;
+			case DOUBLE:
+				_localctx = new DoubleContext(_localctx);
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 49; Match(DOUBLE);
+				}
+				break;
+			case FLOAT:
+				_localctx = new FloatContext(_localctx);
+				EnterOuterAlt(_localctx, 3);
+				{
+				State = 50; Match(FLOAT);
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -461,7 +683,7 @@ public partial class CMMParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 50; Match(NAME);
+			State = 53; Match(NAME);
 			}
 		}
 		catch (RecognitionException re) {
@@ -483,58 +705,61 @@ public partial class CMMParser : Parser {
 	}
 	private bool expression_sempred(ExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
-		case 0: return Precpred(Context, 5);
-		case 1: return Precpred(Context, 4);
+		case 0: return Precpred(Context, 4);
+		case 1: return Precpred(Context, 3);
 		}
 		return true;
 	}
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\xE', '\x37', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\x5964', '\x3', '\xE', ':', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
 		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
 		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x3', '\x2', '\x3', '\x2', 
 		'\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', 
-		'\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', 
-		'\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x5', '\x2', '\x1E', '\n', 
-		'\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', 
-		'\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\a', '\x2', '(', '\n', 
-		'\x2', '\f', '\x2', '\xE', '\x2', '+', '\v', '\x2', '\x3', '\x3', '\x3', 
-		'\x3', '\x3', '\x4', '\x3', '\x4', '\x3', '\x5', '\x3', '\x5', '\x3', 
-		'\x6', '\x3', '\x6', '\x3', '\a', '\x3', '\a', '\x3', '\a', '\x2', '\x3', 
-		'\x2', '\b', '\x2', '\x4', '\x6', '\b', '\n', '\f', '\x2', '\x5', '\x3', 
-		'\x2', '\x6', '\a', '\x3', '\x2', '\b', '\t', '\x3', '\x2', '\v', '\f', 
-		'\x2', '\x37', '\x2', '\x1D', '\x3', '\x2', '\x2', '\x2', '\x4', ',', 
-		'\x3', '\x2', '\x2', '\x2', '\x6', '.', '\x3', '\x2', '\x2', '\x2', '\b', 
-		'\x30', '\x3', '\x2', '\x2', '\x2', '\n', '\x32', '\x3', '\x2', '\x2', 
-		'\x2', '\f', '\x34', '\x3', '\x2', '\x2', '\x2', '\xE', '\x1E', '\b', 
-		'\x2', '\x1', '\x2', '\xF', '\x10', '\a', '\x3', '\x2', '\x2', '\x10', 
-		'\x11', '\x5', '\x2', '\x2', '\x2', '\x11', '\x12', '\a', '\x4', '\x2', 
-		'\x2', '\x12', '\x1E', '\x3', '\x2', '\x2', '\x2', '\x13', '\x1E', '\x5', 
-		'\n', '\x6', '\x2', '\x14', '\x1E', '\x5', '\f', '\a', '\x2', '\x15', 
-		'\x16', '\x5', '\f', '\a', '\x2', '\x16', '\x17', '\x5', '\b', '\x5', 
-		'\x2', '\x17', '\x18', '\x5', '\x2', '\x2', '\x4', '\x18', '\x1E', '\x3', 
-		'\x2', '\x2', '\x2', '\x19', '\x1A', '\a', '\x5', '\x2', '\x2', '\x1A', 
-		'\x1B', '\x5', '\x2', '\x2', '\x2', '\x1B', '\x1C', '\a', '\x4', '\x2', 
-		'\x2', '\x1C', '\x1E', '\x3', '\x2', '\x2', '\x2', '\x1D', '\xE', '\x3', 
-		'\x2', '\x2', '\x2', '\x1D', '\xF', '\x3', '\x2', '\x2', '\x2', '\x1D', 
-		'\x13', '\x3', '\x2', '\x2', '\x2', '\x1D', '\x14', '\x3', '\x2', '\x2', 
-		'\x2', '\x1D', '\x15', '\x3', '\x2', '\x2', '\x2', '\x1D', '\x19', '\x3', 
-		'\x2', '\x2', '\x2', '\x1E', ')', '\x3', '\x2', '\x2', '\x2', '\x1F', 
-		' ', '\f', '\a', '\x2', '\x2', ' ', '!', '\x5', '\x6', '\x4', '\x2', '!', 
-		'\"', '\x5', '\x2', '\x2', '\b', '\"', '(', '\x3', '\x2', '\x2', '\x2', 
-		'#', '$', '\f', '\x6', '\x2', '\x2', '$', '%', '\x5', '\x4', '\x3', '\x2', 
-		'%', '&', '\x5', '\x2', '\x2', '\a', '&', '(', '\x3', '\x2', '\x2', '\x2', 
-		'\'', '\x1F', '\x3', '\x2', '\x2', '\x2', '\'', '#', '\x3', '\x2', '\x2', 
-		'\x2', '(', '+', '\x3', '\x2', '\x2', '\x2', ')', '\'', '\x3', '\x2', 
-		'\x2', '\x2', ')', '*', '\x3', '\x2', '\x2', '\x2', '*', '\x3', '\x3', 
-		'\x2', '\x2', '\x2', '+', ')', '\x3', '\x2', '\x2', '\x2', ',', '-', '\t', 
-		'\x2', '\x2', '\x2', '-', '\x5', '\x3', '\x2', '\x2', '\x2', '.', '/', 
-		'\t', '\x3', '\x2', '\x2', '/', '\a', '\x3', '\x2', '\x2', '\x2', '\x30', 
-		'\x31', '\a', '\n', '\x2', '\x2', '\x31', '\t', '\x3', '\x2', '\x2', '\x2', 
-		'\x32', '\x33', '\t', '\x4', '\x2', '\x2', '\x33', '\v', '\x3', '\x2', 
-		'\x2', '\x2', '\x34', '\x35', '\a', '\r', '\x2', '\x2', '\x35', '\r', 
-		'\x3', '\x2', '\x2', '\x2', '\x5', '\x1D', '\'', ')',
+		'\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x5', '\x2', 
+		'\x1A', '\n', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', 
+		'\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\x3', '\x2', '\a', '\x2', 
+		'$', '\n', '\x2', '\f', '\x2', '\xE', '\x2', '\'', '\v', '\x2', '\x3', 
+		'\x3', '\x3', '\x3', '\x5', '\x3', '+', '\n', '\x3', '\x3', '\x4', '\x3', 
+		'\x4', '\x5', '\x4', '/', '\n', '\x4', '\x3', '\x5', '\x3', '\x5', '\x3', 
+		'\x6', '\x3', '\x6', '\x3', '\x6', '\x5', '\x6', '\x36', '\n', '\x6', 
+		'\x3', '\a', '\x3', '\a', '\x3', '\a', '\x2', '\x3', '\x2', '\b', '\x2', 
+		'\x4', '\x6', '\b', '\n', '\f', '\x2', '\x2', '\x2', '<', '\x2', '\x19', 
+		'\x3', '\x2', '\x2', '\x2', '\x4', '*', '\x3', '\x2', '\x2', '\x2', '\x6', 
+		'.', '\x3', '\x2', '\x2', '\x2', '\b', '\x30', '\x3', '\x2', '\x2', '\x2', 
+		'\n', '\x35', '\x3', '\x2', '\x2', '\x2', '\f', '\x37', '\x3', '\x2', 
+		'\x2', '\x2', '\xE', '\xF', '\b', '\x2', '\x1', '\x2', '\xF', '\x10', 
+		'\a', '\x3', '\x2', '\x2', '\x10', '\x11', '\x5', '\x2', '\x2', '\x2', 
+		'\x11', '\x12', '\a', '\x4', '\x2', '\x2', '\x12', '\x1A', '\x3', '\x2', 
+		'\x2', '\x2', '\x13', '\x1A', '\x5', '\n', '\x6', '\x2', '\x14', '\x1A', 
+		'\x5', '\f', '\a', '\x2', '\x15', '\x16', '\x5', '\f', '\a', '\x2', '\x16', 
+		'\x17', '\x5', '\b', '\x5', '\x2', '\x17', '\x18', '\x5', '\x2', '\x2', 
+		'\x3', '\x18', '\x1A', '\x3', '\x2', '\x2', '\x2', '\x19', '\xE', '\x3', 
+		'\x2', '\x2', '\x2', '\x19', '\x13', '\x3', '\x2', '\x2', '\x2', '\x19', 
+		'\x14', '\x3', '\x2', '\x2', '\x2', '\x19', '\x15', '\x3', '\x2', '\x2', 
+		'\x2', '\x1A', '%', '\x3', '\x2', '\x2', '\x2', '\x1B', '\x1C', '\f', 
+		'\x6', '\x2', '\x2', '\x1C', '\x1D', '\x5', '\x6', '\x4', '\x2', '\x1D', 
+		'\x1E', '\x5', '\x2', '\x2', '\a', '\x1E', '$', '\x3', '\x2', '\x2', '\x2', 
+		'\x1F', ' ', '\f', '\x5', '\x2', '\x2', ' ', '!', '\x5', '\x4', '\x3', 
+		'\x2', '!', '\"', '\x5', '\x2', '\x2', '\x6', '\"', '$', '\x3', '\x2', 
+		'\x2', '\x2', '#', '\x1B', '\x3', '\x2', '\x2', '\x2', '#', '\x1F', '\x3', 
+		'\x2', '\x2', '\x2', '$', '\'', '\x3', '\x2', '\x2', '\x2', '%', '#', 
+		'\x3', '\x2', '\x2', '\x2', '%', '&', '\x3', '\x2', '\x2', '\x2', '&', 
+		'\x3', '\x3', '\x2', '\x2', '\x2', '\'', '%', '\x3', '\x2', '\x2', '\x2', 
+		'(', '+', '\a', '\x5', '\x2', '\x2', ')', '+', '\a', '\x6', '\x2', '\x2', 
+		'*', '(', '\x3', '\x2', '\x2', '\x2', '*', ')', '\x3', '\x2', '\x2', '\x2', 
+		'+', '\x5', '\x3', '\x2', '\x2', '\x2', ',', '/', '\a', '\a', '\x2', '\x2', 
+		'-', '/', '\a', '\b', '\x2', '\x2', '.', ',', '\x3', '\x2', '\x2', '\x2', 
+		'.', '-', '\x3', '\x2', '\x2', '\x2', '/', '\a', '\x3', '\x2', '\x2', 
+		'\x2', '\x30', '\x31', '\a', '\t', '\x2', '\x2', '\x31', '\t', '\x3', 
+		'\x2', '\x2', '\x2', '\x32', '\x36', '\a', '\f', '\x2', '\x2', '\x33', 
+		'\x36', '\a', '\v', '\x2', '\x2', '\x34', '\x36', '\a', '\n', '\x2', '\x2', 
+		'\x35', '\x32', '\x3', '\x2', '\x2', '\x2', '\x35', '\x33', '\x3', '\x2', 
+		'\x2', '\x2', '\x35', '\x34', '\x3', '\x2', '\x2', '\x2', '\x36', '\v', 
+		'\x3', '\x2', '\x2', '\x2', '\x37', '\x38', '\a', '\r', '\x2', '\x2', 
+		'\x38', '\r', '\x3', '\x2', '\x2', '\x2', '\b', '\x19', '#', '%', '*', 
+		'.', '\x35',
 	};
 
 	public static readonly ATN _ATN =

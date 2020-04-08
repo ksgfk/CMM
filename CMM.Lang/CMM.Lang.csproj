@@ -5,6 +5,13 @@
         <LangVersion>default</LangVersion>
         <AssemblyVersion>0.0.1</AssemblyVersion>
         <FileVersion>0.0.1</FileVersion>
+        <PackageVersion>0.0.1</PackageVersion>
+        <Title>core lib</Title>
+        <Authors>ksgfk</Authors>
+        <Copyright>MIT</Copyright>
+        <PackageProjectUrl>https://github.com/ksgfk/CMM/tree/master/CMM.Lang</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/ksgfk/CMM/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/ksgfk/CMM</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>

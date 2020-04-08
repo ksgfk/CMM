@@ -1,112 +1,112 @@
-using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using Antlr4.Runtime;
 
 namespace CMM.Lang
 {
-    /// <summary>
-    /// TODO：是不是用Listener来储存解析比较好，Visitor返回解析结果
-    /// </summary>
-    public class CmmExprVisitor : CMMBaseVisitor<IExpression>
+    public class CmmExprVisitor : CMMBaseVisitor<Expression>
     {
-        private readonly Dictionary<string, FieldExpr> _fields;
+        private readonly Dictionary<string, Expression> _fields;
 
-        public CmmExprVisitor() { _fields = new Dictionary<string, FieldExpr>(); }
+        public CmmExprVisitor() { _fields = new Dictionary<string, Expression>(); }
 
-        public override IExpression VisitNumber(CMMParser.NumberContext context) { return new NumberExpr(context.GetText()); }
-
-        public override IExpression VisitOperatorAddSub(CMMParser.OperatorAddSubContext context)
+        public override Expression VisitInt(CMMParser.IntContext context)
         {
-            var parent = context.Parent;
-            return new AddSubExpr(
-                (Expression<double>) VisitExpression((CMMParser.ExpressionContext) parent.GetChild(0)),
-                (Expression<double>) VisitExpression((CMMParser.ExpressionContext) parent.GetChild(2)),
-                parent.GetChild(1).GetText()[0]);
+            return Expression.Constant(int.Parse(context.GetText()), typeof(int));
         }
 
-        public override IExpression VisitOperatorMulDiv(CMMParser.OperatorMulDivContext context)
+        public override Expression VisitFloat(CMMParser.FloatContext context)
         {
-            var parent = context.Parent;
-            return new MulDivExpr(
-                (Expression<double>) VisitExpression((CMMParser.ExpressionContext) parent.GetChild(0)),
-                (Expression<double>) VisitExpression((CMMParser.ExpressionContext) parent.GetChild(2)),
-                parent.GetChild(1).GetText()[0]);
+            var text = context.GetText();
+            return Expression.Constant(float.Parse(text.Substring(0, text.Length - 1)), typeof(float));
         }
 
-        public override IExpression VisitOperatorAssign(CMMParser.OperatorAssignContext context)
+        public override Expression VisitDouble(CMMParser.DoubleContext context)
         {
-            var parent = context.Parent;
-            var field = (FieldExpr) VisitField((CMMParser.FieldContext) parent.GetChild(0));
-            var expr = VisitExpression((CMMParser.ExpressionContext) parent.GetChild(2));
-            field.Expr = expr;
-            return field;
+            var text = context.GetText();
+            if (text[text.Length - 1] == 'd')
+            {
+                text = text.Substring(0, text.Length - 1);
+            }
+
+            return Expression.Constant(double.Parse(text), typeof(double));
         }
 
-        public override IExpression VisitField(CMMParser.FieldContext context)
-        {
-            var fieldName = context.GetChild(0).GetText();
-            if (!_fields.TryGetValue(fieldName, out var field))
-            {
-                field = new FieldExpr(fieldName, null);
-                _fields.Add(fieldName, field);
-            }
+        public override Expression VisitNum(CMMParser.NumContext context) { return context.GetChild(0).Accept(this); }
 
-            return field;
+        public override Expression VisitAdd(CMMParser.AddContext context)
+        {
+            GetBinaryExprLeftRight(context.Parent, out var left, out var right);
+            return Expression.Add(left, right);
         }
 
-        public override IExpression VisitExpression(CMMParser.ExpressionContext context)
+        public override Expression VisitSub(CMMParser.SubContext context)
         {
-            if (context == null)
+            GetBinaryExprLeftRight(context.Parent, out var left, out var right);
+            return Expression.Subtract(left, right);
+        }
+
+        public override Expression VisitAddSub(CMMParser.AddSubContext context)
+        {
+            return context.GetChild(1).Accept(this);
+        }
+
+        public override Expression VisitMul(CMMParser.MulContext context)
+        {
+            GetBinaryExprLeftRight(context.Parent, out var left, out var right);
+            return Expression.Multiply(left, right);
+        }
+
+        public override Expression VisitDiv(CMMParser.DivContext context)
+        {
+            GetBinaryExprLeftRight(context.Parent, out var left, out var right);
+            return Expression.Divide(left, right);
+        }
+
+        public override Expression VisitMulDiv(CMMParser.MulDivContext context)
+        {
+            return context.GetChild(1).Accept(this);
+        }
+
+        private void GetBinaryExprLeftRight(RuleContext context, out Expression left, out Expression right)
+        {
+            left = context.GetChild(0).Accept(this);
+            right = context.GetChild(2).Accept(this);
+        }
+
+        public override Expression VisitVariable(CMMParser.VariableContext context)
+        {
+            var text = context.GetText();
+            if (_fields.TryGetValue(text, out var expr))
             {
-                return null;
+                return expr;
             }
 
-            var number = context.number();
-            if (number != null)
+            _fields.Add(text, null);
+            return null;
+        }
+
+        public override Expression VisitField(CMMParser.FieldContext context) { return _fields[context.GetText()]; }
+
+        public override Expression VisitAssign(CMMParser.AssignContext context)
+        {
+            var text = context.GetChild(0).GetText();
+            var expr = Visit(context.GetChild(2));
+            if (_fields.ContainsKey(text))
             {
-                return VisitNumber(number);
+                _fields[text] = expr;
+            }
+            else
+            {
+                _fields.Add(text, expr);
             }
 
-            var opMd = context.operatorMulDiv();
-            if (opMd != null)
-            {
-                return VisitOperatorMulDiv(opMd);
-            }
+            return expr;
+        }
 
-            var opAs = context.operatorAddSub();
-            if (opAs != null)
-            {
-                return VisitOperatorAddSub(opAs);
-            }
-
-            var assign = context.operatorAssign();
-            if (assign != null)
-            {
-                return VisitOperatorAssign(assign);
-            }
-
-            var field = context.field();
-            if (field != null)
-            {
-                var ans = (FieldExpr) VisitField(field);
-                return ans.Expr == null ? null : ans;
-            }
-
-
-            if (context.GetChild(0).GetText() == "print(") //过于生草的解析方式（
-            {
-                Console.Write(">> ");
-                var expr = VisitExpression((CMMParser.ExpressionContext) context.GetChild(1));
-                if (expr == null)
-                {
-                    Console.WriteLine("null");
-                }
-                else
-                {
-                    Console.WriteLine(expr.GetResult());
-                }
-            }
-
-            return VisitExpression((CMMParser.ExpressionContext) context.GetChild(1));
+        public override Expression VisitOperatorAssign(CMMParser.OperatorAssignContext context)
+        {
+            return context.GetChild(1).Accept(this);
         }
     }
 }

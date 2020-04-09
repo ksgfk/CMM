@@ -35,6 +35,114 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CLSCompliant(false)]
 public partial class CMMBaseListener : ICMMListener {
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.chunk"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterChunk([NotNull] CMMParser.ChunkContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.chunk"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitChunk([NotNull] CMMParser.ChunkContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.block"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBlock([NotNull] CMMParser.BlockContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.block"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBlock([NotNull] CMMParser.BlockContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.stat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterStat([NotNull] CMMParser.StatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.stat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitStat([NotNull] CMMParser.StatContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.retstat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterRetstat([NotNull] CMMParser.RetstatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.retstat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitRetstat([NotNull] CMMParser.RetstatContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.funcname"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFuncname([NotNull] CMMParser.FuncnameContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.funcname"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFuncname([NotNull] CMMParser.FuncnameContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.explist"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterExplist([NotNull] CMMParser.ExplistContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.explist"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitExplist([NotNull] CMMParser.ExplistContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.funcbody"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterFuncbody([NotNull] CMMParser.FuncbodyContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.funcbody"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitFuncbody([NotNull] CMMParser.FuncbodyContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.parlist"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterParlist([NotNull] CMMParser.ParlistContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.parlist"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitParlist([NotNull] CMMParser.ParlistContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.param"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterParam([NotNull] CMMParser.ParamContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.param"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitParam([NotNull] CMMParser.ParamContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by the <c>Variable</c>
 	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -240,6 +348,18 @@ public partial class CMMBaseListener : ICMMListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitField([NotNull] CMMParser.FieldContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterType([NotNull] CMMParser.TypeContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.type"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitType([NotNull] CMMParser.TypeContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

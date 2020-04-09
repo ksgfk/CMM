@@ -31,6 +31,96 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface ICMMListener : IParseTreeListener {
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.chunk"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterChunk([NotNull] CMMParser.ChunkContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.chunk"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitChunk([NotNull] CMMParser.ChunkContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.block"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterBlock([NotNull] CMMParser.BlockContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.block"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitBlock([NotNull] CMMParser.BlockContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.stat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterStat([NotNull] CMMParser.StatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.stat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitStat([NotNull] CMMParser.StatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.retstat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterRetstat([NotNull] CMMParser.RetstatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.retstat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitRetstat([NotNull] CMMParser.RetstatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.funcname"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFuncname([NotNull] CMMParser.FuncnameContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.funcname"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFuncname([NotNull] CMMParser.FuncnameContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.explist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterExplist([NotNull] CMMParser.ExplistContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.explist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitExplist([NotNull] CMMParser.ExplistContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.funcbody"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterFuncbody([NotNull] CMMParser.FuncbodyContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.funcbody"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitFuncbody([NotNull] CMMParser.FuncbodyContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.parlist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterParlist([NotNull] CMMParser.ParlistContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.parlist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitParlist([NotNull] CMMParser.ParlistContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.param"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterParam([NotNull] CMMParser.ParamContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.param"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitParam([NotNull] CMMParser.ParamContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>Variable</c>
 	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// </summary>
@@ -206,4 +296,14 @@ public interface ICMMListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitField([NotNull] CMMParser.FieldContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="CMMParser.type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterType([NotNull] CMMParser.TypeContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="CMMParser.type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitType([NotNull] CMMParser.TypeContext context);
 }

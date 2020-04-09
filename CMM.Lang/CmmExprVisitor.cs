@@ -24,7 +24,8 @@ namespace CMM.Lang
         public override Expression VisitDouble(CMMParser.DoubleContext context)
         {
             var text = context.GetText();
-            if (text[text.Length - 1] == 'd')
+            var sign = text[text.Length - 1];
+            if (sign == 'd' || sign == 'D')
             {
                 text = text.Substring(0, text.Length - 1);
             }

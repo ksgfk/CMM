@@ -32,6 +32,60 @@ using IToken = Antlr4.Runtime.IToken;
 [System.CLSCompliant(false)]
 public interface ICMMVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.chunk"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitChunk([NotNull] CMMParser.ChunkContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.block"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBlock([NotNull] CMMParser.BlockContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.stat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitStat([NotNull] CMMParser.StatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.retstat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitRetstat([NotNull] CMMParser.RetstatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.funcname"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFuncname([NotNull] CMMParser.FuncnameContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.explist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitExplist([NotNull] CMMParser.ExplistContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.funcbody"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitFuncbody([NotNull] CMMParser.FuncbodyContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.parlist"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitParlist([NotNull] CMMParser.ParlistContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.param"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitParam([NotNull] CMMParser.ParamContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>Variable</c>
 	/// labeled alternative in <see cref="CMMParser.expression"/>.
 	/// </summary>
@@ -134,4 +188,10 @@ public interface ICMMVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitField([NotNull] CMMParser.FieldContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="CMMParser.type"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitType([NotNull] CMMParser.TypeContext context);
 }

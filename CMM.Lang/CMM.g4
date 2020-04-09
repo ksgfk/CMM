@@ -1,6 +1,43 @@
 grammar CMM;
 
-expression
+chunk//代码块,一个文件一个chunk
+    : block EOF
+    ;
+
+block//子代码块
+    : stat* retstat?
+    ;
+    
+stat//语句
+    : ';'
+    | type funcname funcbody
+    ;
+    
+retstat//返回语句,暂时没有用
+    : 'return' explist? ';'?
+    ;
+
+funcname//函数名
+    : NAME ('.' NAME)*
+    ;
+    
+explist//表达式列表
+    : expression (',' expression)*
+    ;
+    
+funcbody//函数体
+    : '(' paramlist? ')' '{' block '}'
+    ;
+    
+paramlist//参数列表
+    : param (',' param)?
+    ;
+    
+param//参数
+    : type NAME
+    ;
+
+expression//表达式
     :'(' expression ')'                         #Parent
     | number                                    #Num
     | expression operatorMulDiv expression      #MulDiv
@@ -23,7 +60,7 @@ operatorAssign//赋值运算符
     : '='
     ;
 
-number
+number//数字
     : INT       #Int
     | DOUBLE    #Double
     | FLOAT     #Float
@@ -31,6 +68,15 @@ number
 
 field//字段
     : NAME
+    ;
+    
+type//类型
+    : ('void'
+    | 'char'
+    | 'int'
+    | 'float'
+    | 'double'
+    | 'string')
     ;
 
 fragment
@@ -43,18 +89,30 @@ ExponentPart//指数
     : [eE] [+-]? Digit+
     ;
 
+FLOATSIGN
+    : 'f'
+    | 'F'
+    ;
+
 FLOAT
-    : Digit+ 'f'
-    | Digit+ '.' Digit* ExponentPart? 'f'
-    | '.' Digit+ ExponentPart? 'f'
-    | Digit+ ExponentPart 'f'
+    : Digit+ FLOATSIGN
+    | Digit+ '.' Digit* ExponentPart? FLOATSIGN
+    | '.' Digit+ ExponentPart? FLOATSIGN
+    | Digit+ ExponentPart FLOATSIGN
+    ;
+    
+DOUBLESIGN
+    : 'd'
+    | 'D'
     ;
     
 DOUBLE
-    : Digit+ 'd'
-    | Digit+ '.' Digit* ExponentPart? 'd'
+    : Digit+ DOUBLESIGN
+    | Digit+ '.' Digit* ExponentPart? DOUBLESIGN
     | Digit+ '.' Digit* ExponentPart?
+    | '.' Digit+ ExponentPart? DOUBLESIGN
     | '.' Digit+ ExponentPart?
+    | Digit+ ExponentPart DOUBLESIGN
     | Digit+ ExponentPart
     ;
 
@@ -66,6 +124,10 @@ NAME//名称，可以是变量的
     : [a-zA-Z_][a-zA-Z_0-9]*
     ;
 
-WS//跳过解析空格，转义字符
-    : [ \t\r\n]+ -> skip
+WS  
+    : [ \t\u000C\r\n]+ -> skip
+    ;
+    
+SHEBANG
+    : '#' '!' ~('\n'|'\r')* -> channel(HIDDEN)
     ;

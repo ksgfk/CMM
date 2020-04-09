@@ -26,29 +26,42 @@ namespace CMM
                     break;
                 }
 
+                // var stream = new AntlrInputStream(input);
+                // var lexer = new LuaLexer(stream);
+                // var tokens = new CommonTokenStream(lexer);
+                // var parser = new LuaParser(tokens);
+                // var tree = parser.chunk();
+                // Console.WriteLine(tree.ToStringTree(parser));
+
                 var stream = new AntlrInputStream(input);
                 var lexer = new CMMLexer(stream);
                 var tokens = new CommonTokenStream(lexer);
                 var parser = new CMMParser(tokens);
-                var tree = parser.expression();
+                var tree = parser.chunk();
                 Console.WriteLine(tree.ToStringTree(parser));
-                try
-                {
-                    var expr = visitor.Visit(tree);
-                    if (expr == null)
-                    {
-                        Console.WriteLine("null");
-                        continue;
-                    }
-
-                    var result = Expression.Lambda(expr).Compile();
-                    Console.WriteLine(result.DynamicInvoke());
-                    // Console.WriteLine(expr.ToString());
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+                
+                // var lexer = new CMMLexer(stream);
+                // var tokens = new CommonTokenStream(lexer);
+                // var parser = new CMMParser(tokens);
+                // var tree = parser.expression();
+                // Console.WriteLine(tree.ToStringTree(parser));
+                // try
+                // {
+                //     var expr = visitor.Visit(tree);
+                //     if (expr == null)
+                //     {
+                //         Console.WriteLine("null");
+                //         continue;
+                //     }
+                //
+                //     var result = Expression.Lambda(expr).Compile();
+                //     Console.WriteLine(result.DynamicInvoke());
+                //     // Console.WriteLine(expr.ToString());
+                // }
+                // catch (Exception e)
+                // {
+                //     Console.WriteLine(e);
+                // }
             }
         }
     }
